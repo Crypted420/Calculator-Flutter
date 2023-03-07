@@ -94,9 +94,11 @@ class _CalulatorState extends State<Calculator> {
       inputs = '';
       expression = '';
       previousCal = '';
-    } else if (inputs.length > 15) {
-      inputs = inputs;
-    } else if (keys[index] == '+' ||
+    }
+    //  else if (inputs.length > 15) {
+    //   inputs = inputs;
+    // }
+    else if (keys[index] == '+' ||
         keys[index] == '−' ||
         keys[index] == '÷' ||
         keys[index] == '^' ||
@@ -188,33 +190,43 @@ class _CalulatorState extends State<Calculator> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
-                  child: Container(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      previousCal,
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          fontFamily: 'OpenSans',
-                          // fontSize: 25 - (inputs.length / 10).clamp(0, 3) * 5,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w400,
-                          textBaseline: TextBaseline.alphabetic),
-                    ),
+                  child: ListView(
+                    reverse: true,
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          previousCal,
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'OpenSans',
+                              fontSize: 30,
+                              fontWeight: FontWeight.w400,
+                              textBaseline: TextBaseline.alphabetic),
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      inputs,
-                      style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          // fontSize: 40 - (inputs.length / 10).clamp(0, 3) * 5,
-                          fontSize: inputs.length > 15 ? 40 : 50,
-                          fontWeight: FontWeight.w400,
-                          color: darkmode ? Colors.white : Colors.black),
-                    ),
-                  ),
+                  child: ListView(
+                      reverse: true,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Container(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            inputs,
+                            style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                // fontSize: 40 - (inputs.length / 10).clamp(0, 3) * 5,
+                                fontSize: inputs.length > 15 ? 40 : 50,
+                                fontWeight: FontWeight.w400,
+                                color: darkmode ? Colors.white : Colors.black),
+                          ),
+                        )
+                      ]),
                 ),
               ],
             ),
@@ -232,12 +244,15 @@ class _CalulatorState extends State<Calculator> {
           keys.length,
           (index) {
             Color textColor = arrIndex == 0
-                ? (index != 3
-                    ? const Color.fromRGBO(0, 192, 0, 1)
-                    : const Color.fromRGBO(255, 32, 0, 1))
+                ? const Color.fromRGBO(185, 74, 10, 1)
                 : (index != 3
                     ? (darkmode ? Colors.white : Colors.black)
-                    : const Color.fromRGBO(255, 32, 0, 1));
+                    : const Color.fromRGBO(185, 74, 10, 1));
+
+            FontWeight fontWeight = arrIndex == 0
+                ? FontWeight.w700
+                : (index != 3 ? FontWeight.w400 : FontWeight.w700);
+
             return SizedBox(
               width: containerWidth / 4,
               height: 100,
@@ -247,41 +262,38 @@ class _CalulatorState extends State<Calculator> {
                     handleChangeState(index, keys);
                   });
                 },
-                child: Center(
-                  child: Container(
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.05),
-                          spreadRadius: 0.1,
-                          blurRadius: 0.5,
-                          offset: const Offset(0, 1),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Center(
-                        child: keys[index] == 'C'
-                            ? const Icon(Icons.backspace_outlined,
-                                size: 35, color: Color.fromRGBO(0, 192, 0, 1))
-                            : (keys[index] == 'R'
-                                ? Icon(
-                                    Icons.refresh_outlined,
-                                    color:
-                                        darkmode ? Colors.white : Colors.black,
-                                  )
-                                : Text(
-                                    keys[index],
-                                    style: TextStyle(
-                                      fontFamily: 'OpenSans',
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w400,
-                                      color: textColor,
-                                    ),
-                                  ))),
+                child: Ink(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.05),
+                        spreadRadius: 0.1,
+                        blurRadius: 0.5,
+                        offset: const Offset(0, 1),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(20),
                   ),
+                  child: Center(
+                      child: keys[index] == 'C'
+                          ? const Icon(Icons.backspace_outlined,
+                              size: 30, color: Color.fromRGBO(185, 74, 10, 1))
+                          : (keys[index] == 'R'
+                              ? Icon(
+                                  Icons.refresh_outlined,
+                                  color: darkmode ? Colors.white : Colors.black,
+                                )
+                              : Text(
+                                  keys[index],
+                                  style: TextStyle(
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 30,
+                                    fontWeight: fontWeight,
+                                    color: textColor,
+                                  ),
+                                ))),
                 ),
               ),
             );

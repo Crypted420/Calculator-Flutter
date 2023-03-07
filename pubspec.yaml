@@ -1,5 +1,5 @@
 name: calculator
-description: A Simple Calculator.
+description: A simple calculator
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -56,11 +56,18 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: fonts/OpenSans-Regular.ttf
+          weight: 400
+        - asset: fonts/OpenSans-Medium.ttf
+          weight: 700
+        - asset: fonts/OpenSans-Bold.ttf
+          weight: 900
 flutter_icons:
   image_path_android: "icons/icon-512x512.png"
   image_path_ios: "icons/icon-180x180.png"
-  # adaptive_icon_foreground: "icons/icon-512x512.png"
   android: true
   ios: true
   adaptive_icon_background: "#000000"
@@ -80,15 +87,6 @@ flutter_icons:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: OpenSans
-      fonts:
-        - asset: fonts/OpenSans-Regular.ttf
-          weight: 400
-        - asset: fonts/OpenSans-Medium.ttf
-          weight: 700
-        - asset: fonts/OpenSans-Bold.ttf
-          weight: 900
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
